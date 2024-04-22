@@ -1,0 +1,24 @@
+{
+  "name": "cryptocoin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "dev": "nodemon main.js",
+    "dev2": "nodemon main.js --rpc-port=24101 --p2p-port=24100"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "args-parser": "^1.3.0",
+    "chalk": "^4.1.2",
+    "crypto-js": "^4.2.0",
+    "express": "^4.19.2",
+    "gpu.js": "^2.16.0",
+    "node-json-db": "^0.7.5",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "uuid": "^9.0.1"
+  }
+}
