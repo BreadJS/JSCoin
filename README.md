@@ -1,4 +1,4 @@
-# JSCoin
+# VerumCoin
 A WIP cryptocurrency coin in NodeJS. This is far from done so do not expect anything.
 
 Requirements:
