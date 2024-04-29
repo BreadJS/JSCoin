@@ -3,9 +3,9 @@ const core = require('./core/core');
 const db = require('./core/db');
 const log = require('./core/log');
 
-const p2p = require('./network/p2p');
-const p2p_client = require('./network/p2p_client');
-const rpc = require('./network/rpc');
+const p2p = require('./src/network/p2p');
+const p2p_client = require('./src/network/p2p_client');
+const rpc = require('./src/network/rpc');
 
 console.clear();
 

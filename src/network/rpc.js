@@ -1,8 +1,8 @@
 const express = require('express');
 
-const log = require('../core/log');
-const config = require('../core/config');
-const core = require('../core/core');
+const log = require('../../core/log');
+const config = require('../../core/config');
+const core = require('../../core/core');
 const p2p = require('./p2p');
 
 const app = express();

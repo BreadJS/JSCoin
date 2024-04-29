@@ -1,6 +1,6 @@
 const socketIOClient = require('socket.io-client');
 
-const config = require('./../core/config');
+const config = require('./../../core/config');
 const p2p = require('./p2p');
 
 module.exports = {

@@ -2,8 +2,8 @@ const http = require('http');
 const socketIO = require('socket.io');
 const { v4: uuidv4 } = require('uuid');
 
-const log = require('../core/log');
-const config = require('../core/config');
+const log = require('../../core/log');
+const config = require('../../core/config');
 
 const server = http.createServer();
 const io = socketIO(server);
