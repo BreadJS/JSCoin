@@ -1,6 +1,6 @@
 module.exports = {
-  NAME: "JSCoin",                           // Coin name
-  TICKER: "JSC",                            // Coin ticker
+  NAME: "Verum",                            // Coin name
+  TICKER: "VRM",                            // Coin ticker
   DECIMALS: 8,                              // Coin decimals
   DIFFICULTY_TARGET: 10,                    // Difficulty target and block time
   ALGORITHM: "SHA256",                      // Network version
