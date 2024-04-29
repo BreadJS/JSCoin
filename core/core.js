@@ -122,4 +122,24 @@ module.exports = {
       }
     });
   },
+
+  // Convert hash to KH/MH/GH/etc.
+  formatHashrate: function(hashrate){
+    let i = 0;
+    let byteUnits = [' H', ' KH', ' MH', ' GH', ' TH', ' PH', ' EH', ' ZH', ' YH' ];
+    while (hashrate > 1000){
+      hashrate = hashrate / 1000;
+      i++;
+    }
+    return hashrate.toFixed(i == 0 ? 0 : 2).toLocaleString('en-US', {maximumFractionDigits: 4}) + byteUnits[i];
+  },
+
+  // Verify if string is a valid hex
+  isValidHex: function(string) {
+    // Regular expression to match hexadecimal characters
+    const hexRegex = /^[0-9a-fA-F]+$/;
+
+    // Test if the string contains only valid hexadecimal characters
+    return hexRegex.test(string);
+}
 };
