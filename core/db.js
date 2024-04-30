@@ -73,14 +73,20 @@ module.exports = {
     // Delete hash from database block
     delete blockData.hash;
 
-    // Test mine genesis block and check if it is valid
-    let mine = await mining.mineBlock(blockData, "0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-    let verification = mining.verifyBlock(block.geneisBlock().hash, blockData, mine.nonce);
+    // Test mine database genesis block and check if it is valid
+    let mineDb = await mining.mineBlock(blockData, "0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+    let verificationDb = mining.verifyBlock(block.geneisBlock().hash, blockData, mineDb.nonce);
+
+    // Test mine hardcoded genesis block
+    let hardBlock = { ...block.geneisBlock() };
+    delete hardBlock.hash;
+    let mineHard = await mining.mineBlock(hardBlock, "0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
     
     // Get the data again but this time do not delete 'hash'
     blockData = { ...blocksDb.getData("/1") };
 
-    if(!verification || !(blockData.hash == mine.hash)) {
+    // Check every value in order to continue the daemon
+    if(!verificationDb || !(blockData.hash == mineDb.hash) || !(mineDb.hash == mineHard.hash)) {
       log.error(`The genesis block is invalid. Please delete './blockchain' folder to regenerate the blockchain.`);
       process.exit();
     }
