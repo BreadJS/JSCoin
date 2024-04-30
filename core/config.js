@@ -6,11 +6,17 @@ module.exports = {
   ALGORITHM: "SHA256",                      // Network version
   VERSION: 100,
 
-  MAX_SUPPLY: 2000000000000000,             // 20,000,000 - In atomic units
-  BLOCK_REWARD: 100000000,                  // 1.00000000 - In atomic units
+  MAX_SUPPLY: 2000000000000000,             // 20,000,000 - Value should be in atomic units
+  PREMINE_AMOUNT: 20000000000000,           // 200,000 - Value should be in atomic units
+  PREMINE_ADDRESS: "",                      // This is the premine wallet address
+  BLOCK_REWARD: 100000000,                  // 1.00000000 - Value should be in  atomic units
   HALVING_INTERVAL: 200000,                 // 200,000 every blocks
 
-  TX_MINIMUM_TRANSACTION_FEE: 100,          // 0.00000100 - In atomic units
+  GENESIS_BLOCK_TIMESTAMP: 17144872260000,
+  GENESIS_BLOCK_HASH: "021feb0a08e8c50c808ea92fb9febd586271060099856814f85dfb6d08df34a7",
+  GENESIS_BLOCK_MESSAGE: "The only limit is yourself! ^-^",
+  
+  TX_MINIMUM_TRANSACTION_FEE: 100,          // 0.00000100 - Value should be in  atomic units
   TX_MEMPOOL_SIZE_LIMIT: 10000,             // 10,000 TXs in mempool
   TX_CONFIRMATION_THRESHOLD: 10,            // 10 Confirmations until unlocked
   TX_COINBASE_CONFIRMATION_THRESHOLD: 10,   // 10 Confirmations until unlocked
