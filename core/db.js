@@ -1,5 +1,9 @@
 let JsonDB = require('node-json-db');
 
+const log = require('./log');
+const block = require('./../src/block');
+const mining = require('./../src/mining');
+
 let blocksDb = new JsonDB("blockchain/blocks.json", true, true);
 let peersDb = new JsonDB("blockchain/peers.json", true, true);
 
@@ -54,4 +58,33 @@ module.exports = {
       return resultSuccess;
     }
   },
+
+  initializeDatabase: async function() {
+    let blockData;
+    try {
+      // Check if genesis block has been created
+      blockData = { ...blocksDb.getData("/1") };
+    } catch(e) {
+      // Create genesis block
+      blocksDb.push("/1", block.geneisBlock());
+      blockData = { ...blocksDb.getData("/1") };
+    }
+
+    // Delete hash from database block
+    delete blockData.hash;
+
+    // Test mine genesis block and check if it is valid
+    let mine = await mining.mineBlock(blockData, "0fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+    let verification = mining.verifyBlock(block.geneisBlock().hash, blockData, mine.nonce);
+    
+    // Get the data again but this time do not delete 'hash'
+    blockData = { ...blocksDb.getData("/1") };
+
+    if(!verification || !(blockData.hash == mine.hash)) {
+      log.error(`The genesis block is invalid. Please delete './blockchain' folder to regenerate the blockchain.`);
+      process.exit();
+    }
+
+    log.info('Database has been initialized');
+  }
 };
