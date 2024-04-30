@@ -10,6 +10,7 @@ const rpc = require('./src/network/rpc');
 console.clear();
 
 (async() => {
+  console.clear();
   log.info(`Starting ${config.NAME} v${core.formattedVersion()}...`);
 
   // Startup
