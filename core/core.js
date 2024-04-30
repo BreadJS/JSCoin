@@ -1,7 +1,3 @@
-const log = require('./log');
-const config = require('./config');
-const block = require('./../src/block');
-
 const chalk = require('chalk');
 const readline = require('readline');
 const args = require('args-parser')(process.argv);
@@ -16,6 +12,7 @@ const readInput = readline.createInterface({
 
 module.exports = {
   databaseFolder: "blockchain",
+  showConnections: false,
 
   // Get version in readable format
   formattedVersion: function() {
@@ -119,6 +116,10 @@ module.exports = {
           module.exports.databaseFolder = args[arg];
         }
 
+        // Show all connections
+        if(arg == "show-connections") {
+          module.exports.showConnections = true;
+        }
 
         // Check if P2P & RPC port is the same
         if(config.P2P_PORT == config.RPC_PORT) {
@@ -160,5 +161,15 @@ module.exports = {
 
     // Test if the string contains only valid hexadecimal characters
     return hexRegex.test(string);
-}
+  },
+
+  ipv4Regex: function(address) {
+    const ipv4Regex = /::ffff:(\d+\.\d+\.\d+\.\d+)/;
+    const ipv4Match = ipv4Regex.exec(address);
+
+    return {
+      match: ipv4Match,
+      address: ipv4Match[1]
+    }
+  }
 };
