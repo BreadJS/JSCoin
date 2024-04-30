@@ -34,13 +34,15 @@ module.exports = {
 
   eventHandler: function() {
     io.on('connection', (socket) => {
+      // Incoming node ip address
+      let address = core.ipv4Regex(socket.handshake.address).address;
+
       // Add this connection to array
       this.incomingNodes.push(socket);
       
       // Connection log
       if(core.showConnections) {
-        let address = core.ipv4Regex(socket.handshake.address).address;
-        log.info(`${chalk.hex('#E0A2F3')('[CONN]')} ${chalk.hex('#BFF3A2')('[IN]')} ${chalk.grey(`[${address}]`)} node has been connected`);
+        log.info(`${chalk.hex('#E0A2F3')('[CONN]')} ${chalk.hex('#BFF3A2')('[IN]')} ${chalk.grey(`[${address}]`)} Node has been connected`);
       }
 
       // Disconnected from a node
@@ -49,16 +51,29 @@ module.exports = {
         if (index !== -1) {
           this.incomingNodes.splice(index, 1);
         }
+
+        // Disconnection log
+        if(core.showConnections) {
+          log.info(`${chalk.hex('#E0A2F3')('[CONN]')} ${chalk.hex('#BFF3A2')('[IN]')} ${chalk.grey(`[${address}]`)} Node has disconnected`);
+        }
       });
 
       // Give node information
       socket.on('getNodeInfo', () => {
         socket.emit('getNodeInfo', {
-          peerId: this.currentNodeId,
+          nodeId: this.currentNodeId,
           networkHeight: 0,
           nodeHeight: 0,
         });
       });
     });
-  }
+  },
+
+  // Get connection index
+  getConnectionIndex: function(array, socket) {
+    const index = array.indexOf(socket);
+    if (index !== -1) {
+      return index;
+    }
+  },
 };

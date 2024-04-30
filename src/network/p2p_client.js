@@ -1,6 +1,9 @@
 const socketIOClient = require('socket.io-client');
+const chalk = require('chalk');
 
 const config = require('./../../core/config');
+const core = require('./../../core/core');
+const log = require('./../../core/log');
 const p2p = require('./p2p');
 
 module.exports = {
@@ -14,6 +17,11 @@ module.exports = {
 
       // Request peer id from node
       socket.emit('getNodeInfo');
+
+      // Connection log
+      if(core.showConnections) {
+        log.info(`${chalk.hex('#E0A2F3')('[CONN]')} ${chalk.hex('#BFF3A2')('[OUT]')} ${chalk.grey(`[${address}]`)} Connected to node`);
+      }
     });
 
     // Disconnected from a node
@@ -26,13 +34,21 @@ module.exports = {
 
     // Get the node information
     socket.on('getNodeInfo', (data) => {
+      // Socket index
+      let socketIndex = p2p.getConnectionIndex(p2p.outgoingNodes, socket);
+
       // Check node id
       let nodeIdValid = this.checkNodeIdToOwn(data.peerId, socket);
 
       // If node id is valid
       if(nodeIdValid) {
-        console.log(data.networkHeight);
-        console.log(data.nodeHeight);
+        // Get node information
+        p2p.outgoingNodes[socketIndex].nodeId = data.nodeId;
+        
+        // Connection log
+        if(core.showConnections) {
+          log.info(`${chalk.hex('#E0A2F3')('[CONN]')} ${chalk.hex('#BFF3A2')('[OUT]')} ${chalk.grey(`[${address}]`)} Node identified as: ${chalk.bold(p2p.outgoingNodes[socketIndex].nodeId)}`);
+        }
       }
     });
   },
