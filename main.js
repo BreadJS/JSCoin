@@ -24,4 +24,8 @@ console.clear();
 
   // Connect to seed nodes
   p2p_client.connectToSeedNodes();
+
+  // Initialize database
+  db.initializeDatabase();
+
 })();
