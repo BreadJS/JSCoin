@@ -6,11 +6,17 @@ const chalk = require('chalk');
 const readline = require('readline');
 const args = require('args-parser')(process.argv);
 
+const log = require('./log');
+const config = require('./config');
+const block = require('./../src/block');
+
 const readInput = readline.createInterface({
   input: process.stdin
 });
 
 module.exports = {
+  databaseFolder: "blockchain",
+
   // Get version in readable format
   formattedVersion: function() {
     const versionString = config.VERSION.toString();
@@ -107,6 +113,12 @@ module.exports = {
           await block.generateGenesisTx();
           process.exit();
         }
+
+        // Custom blockchain data directory
+        if(arg == "data-dir") {
+          module.exports.databaseFolder = args[arg];
+        }
+
 
         // Check if P2P & RPC port is the same
         if(config.P2P_PORT == config.RPC_PORT) {

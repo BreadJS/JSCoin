@@ -1,11 +1,13 @@
 let JsonDB = require('node-json-db');
+const path = require('path');
 
 const log = require('./log');
+const core = require('./core');
 const block = require('./../src/block');
 const mining = require('./../src/mining');
 
-let blocksDb = new JsonDB("blockchain/blocks.json", true, true);
-let peersDb = new JsonDB("blockchain/peers.json", true, true);
+let blocksDb;
+let peersDb;
 
 module.exports = {
   // Get all the saved peers
@@ -91,6 +93,11 @@ module.exports = {
       process.exit();
     }
 
-    log.info('Database has been initialized');
+    log.info(`Database has been initialized in '${path.dirname(__dirname)}\\${core.databaseFolder}'`);
+  },
+  
+  initDatabase: function() {
+    blocksDb = new JsonDB(`${core.databaseFolder}/blocks.json`, true, true);
+    peersDb = new JsonDB(`${core.databaseFolder}/peers.json`, true, true);
   }
 };

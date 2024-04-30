@@ -17,6 +17,9 @@ console.clear();
   core.commandHandler();
   await core.argumentsHandler();
 
+  // Initialize Database
+  db.initDatabase();
+
   // Starting RPC and P2P listeners
   p2p.createListener();
   p2p.eventHandler();
