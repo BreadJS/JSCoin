@@ -1,5 +1,6 @@
 const log = require('./log');
 const config = require('./config');
+const block = require('./../src/block');
 
 const chalk = require('chalk');
 const readline = require('readline');
@@ -57,8 +58,8 @@ module.exports = {
   },
   
   // Arguments handler
-  argumentsHandler: function() {
-    return new Promise((resolve, reject) => {
+  argumentsHandler: async function() {
+    return new Promise(async (resolve, reject) => {
       let i = 0;
       for (const arg in args) {
         // P2P Port
@@ -99,6 +100,12 @@ module.exports = {
             log.error(`'${arg}' does not use a valid port number`);
             process.exit();
           }
+        }
+
+        // Generate genesis TX
+        if(arg == "generate-genesis-tx") {
+          await block.generateGenesisTx();
+          process.exit();
         }
 
         // Check if P2P & RPC port is the same
