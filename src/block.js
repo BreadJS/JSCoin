@@ -5,7 +5,7 @@ module.exports = {
   geneisBlock: function() {
     return {
       hash: config.GENESIS_BLOCK_HASH,
-      previousHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+      previousHash: "0000000000000000000000000000000000000000000000000000000000000000",
       blockVersion: 1,
       nonce: 0,
       timstamp: config.GENESIS_BLOCK_TIMESTAMP,
@@ -20,7 +20,7 @@ module.exports = {
           signature: ""
         }
       ],
-      transactionMerkleHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+      transactionMerkleHash: "0000000000000000000000000000000000000000000000000000000000000000",
       unspentUTOX: []
     }
   },
