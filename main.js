@@ -29,7 +29,8 @@ console.clear();
   // Connect to seed nodes
   p2p_client.connectToSeedNodes();
 
-  // Initialize database
-  db.initializeDatabase();
+  // Check genesis block
+  db.checkGenesis();
+
 
 })();

@@ -61,7 +61,7 @@ module.exports = {
     }
   },
 
-  initializeDatabase: async function() {
+  checkGenesis: async function() {
     let blockData;
     try {
       // Check if genesis block has been created
