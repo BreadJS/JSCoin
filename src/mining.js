@@ -5,6 +5,7 @@ module.exports = {
   currentHashrate: 0,
   
   mineBlock: function (blockData, target) {
+    blockData = JSON.stringify(blockData);
     return new Promise((resolve, reject) => {
       let nonce = 0;
       let nonceBeforeCalc = 0;
@@ -49,6 +50,6 @@ module.exports = {
   },
 
   verifyBlock: function (hash, blockData, nonce) {
-    return hashing.VerumVerify(hash, blockData, nonce);
+    return hashing.VerumVerify(hash, JSON.stringify(blockData), nonce);
   }
 };
