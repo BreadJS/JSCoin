@@ -87,5 +87,38 @@ module.exports = {
         error: "This is not a valid private key"
       };
     }
+  },
+
+  // Sign a transaction
+  signTransaction: function(transactionData, privateKey) {
+    // Hash the transactionData with SHA256 and return a buffer
+    const hashedTransactionData = crypto.createHash('sha256').update(transactionData).digest();
+
+    // Convert string private key to Uint8Array
+    const uintPrivateKey = new Uint8Array(privateKey.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+
+    // Sign the transaction data
+    const signing = secp256k1.ecdsaSign(hashedTransactionData, uintPrivateKey);
+
+    // Return hex string signature (128)
+    return Buffer.from(signing.signature).toString('hex');
+  },
+
+  // Verify a transaction
+  verifyTransaction: function(transactionData, signature, publicKey) {
+    // Hash the transactionData with SHA256 and return a buffer
+    const hashedTransactionData = crypto.createHash('sha256').update(transactionData).digest();
+
+    // Convert string public key to Uint8Array
+    const uintPrivateKey = new Uint8Array(publicKey.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    
+    // Convert string signature to Uint8Array
+    const uintSignature = new Uint8Array(signature.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    
+    // Verify transaction data
+    const verify = secp256k1.ecdsaVerify(uintSignature, hashedTransactionData, uintPrivateKey);
+
+    // Return true/false
+    return verify;
   }
 };
