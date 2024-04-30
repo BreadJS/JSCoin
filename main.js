@@ -21,6 +21,9 @@ console.clear();
   // Initialize Database
   db.initDatabase();
 
+  // Check genesis block
+  await db.checkGenesis();
+
   // Starting RPC and P2P listeners
   p2p.createListener();
   p2p.eventHandler();
